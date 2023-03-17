@@ -73,7 +73,7 @@ class User {
     public boolean addToFavorites(TVShow show) {
         if (!doesExistsInFavorites(show))
         {
-            favorites.add((Movie) show);
+            favorites.add(show);
             Watched(show);
             return true;
         }
@@ -111,7 +111,7 @@ class User {
     }
     public boolean doesExistsInFavorites(TVShow tvShow)
     {
-        return favorites.contains(tvShow);
+        return favorites.stream().anyMatch(tvShow1 -> tvShow1.getTitle().equals(tvShow.getTitle()));
     }
 
     public boolean doesExistsInRecommended(TVShow tvShow)

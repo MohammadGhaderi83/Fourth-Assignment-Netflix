@@ -54,10 +54,10 @@ public class Main {
                 user = netflixService.searchUser(password).get();
                 if (user.getUsername().equals(username)) {
                     System.out.println("Login successfully!");
+                    user_menu(netflixService, user, username);
                 } else {
                     System.out.println("Wrong username!!!");
                 }
-                user_menu(netflixService, user, username);
             } else if (userChoice == 3)
             {
                 runFlag = false;
@@ -95,12 +95,12 @@ public class Main {
                 System.out.println("Input a title:");
                 String title = input.next();
                 System.out.println("Here is the result :");
-                netflixService.searchByTitle(title);
+                System.out.println(netflixService.searchByTitle(title));
             } else if (option == 2){
                 System.out.println("Input a genre:");
                 String genre = input.next();
                 System.out.println("Here is the result :");
-                netflixService.searchByGenre(genre);
+                System.out.println(netflixService.searchByGenre(genre));
             } else if (option == 3){
                 System.out.println("Input a year:");
                 int year = input.nextInt();
@@ -110,18 +110,18 @@ public class Main {
                 System.out.println("Input a title:");
                 String title = input.next();
                 System.out.println("Here is the result :");
-                user.searchByTitle(title);
+                System.out.println(user.searchByTitle(title));
             } else if (option == 5)
             {
                 System.out.println("Input a genre:");
                 String genre = input.next();
                 System.out.println("Here is the result :");
-                user.searchByGenre(genre);
+                System.out.println(user.searchByGenre(genre));;
             } else if (option == 6){
                 System.out.println("Input a year:");
                 int year = input.nextInt();
                 System.out.println("Here is the result :");
-                user.searchByReleaseYear(year);
+                System.out.println(user.searchByReleaseYear(year));
             } else if (option == 7){
                 System.out.println("Please enter a title: ");
                 String title = input.next();
@@ -181,11 +181,11 @@ public class Main {
                 String massage = netflixService.addMovie(movie) ? title + " successfully added" : "This Movie is already exists.";
                 System.out.println(massage);
             } else if (option == 11){
-                user.viewFavorites();
+                System.out.println(user.viewFavorites());
             } else if (option == 12){
-               user.getRecommendations();
+                System.out.println(user.watchedHistory());
             } else if (option == 13) {
-                user.watchedHistory();
+                System.out.println(user.watchedHistory());
             } else if (option == 14){
                 runFlag = false;
                 System.out.println("I am glad to have served");
