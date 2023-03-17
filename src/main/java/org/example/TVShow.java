@@ -3,26 +3,25 @@ package org.example;
 import java.util.ArrayList;
 
 class TVShow {
-    /*
-    *The TVShow should have a title , genre, release year, duration and a rating.
-     *The TVShow should have an ArrayList of the cast.
-     */
-    ArrayList<String> casts = new ArrayList<String>();
-    ArrayList<TVShow> favorites = new ArrayList<TVShow>();
+
     private String title;
     private String genre;
-    private int release_year;
+    private int releaseYear;
     private int duration;
     private double rating;
+    protected ArrayList<String> casts;
 
-    public TVShow(String title, String genre, int release_year, int duration, double rating) {
+    public TVShow(String title, String genre, int releaseYear, int duration, double rating) {
         this.title = title;
         this.genre = genre;
-        this.release_year = release_year;
+        this.releaseYear = releaseYear;
         this.duration = duration;
         this.rating = rating;
+        casts = new ArrayList<>();
     }
 
+    public TVShow() {
+    }
 
     public String getTitle() {
         return title;
@@ -32,8 +31,8 @@ class TVShow {
         return genre;
     }
 
-    public int getRelease_year() {
-        return release_year;
+    public int getReleaseYear() {
+        return releaseYear;
     }
 
     public int getDuration() {
@@ -43,11 +42,31 @@ class TVShow {
     public double getRating() {
         return rating;
     }
-    public void getCasts(ArrayList<String> casts)
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+    @Override
+    public String toString()
     {
-        for (String cast : casts)
-        {
-            System.out.println(cast);
-        }
+        return "{ title: " + title + ", genre: " + genre +
+                ", release year: " + releaseYear + ",duration: " + duration +
+                ",rating(IMDB): " + rating + " }";
     }
 }
