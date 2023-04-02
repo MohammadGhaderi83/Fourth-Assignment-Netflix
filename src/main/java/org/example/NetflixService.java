@@ -1,49 +1,114 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 class NetflixService {
-    /*
-     *The NetflixService should have an Arraylist of users, tv shows and movies.
-     *The NetflixService should have a User object which represents current user.
-     */
 
-    public void addTVShow(TVShow tvShow){
-        // Implement add tv show logic here
+    private ArrayList<User> users;
+    private ArrayList<TVShow> tvShows;
+    private ArrayList<Movie> movies;
+
+    NetflixService()
+    {
+        users = new ArrayList<>();
+        tvShows = new ArrayList<>();
+        movies = new ArrayList<>();
     }
 
-    public void addMovie(Movie movie){
-        // Implement add movie logic here
-    }
-
-    public void createAccount(String username, String password) {
-        // Implement create account logic here
-    }
-
-    public boolean login(String username, String password) {
-        // Implement login logic here
+    public boolean addTVShow(TVShow tvShow){
+        if (!doseTVShowExists(tvShow))
+        {
+            tvShows.add(tvShow);
+            return true;
+        }
         return false;
     }
 
-    public void logout() {
-        // Implement logout logic here
+    public boolean addMovie(Movie movie){
+        if (!doseMovieExists(movie))
+        {
+            movies.add(movie);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean createAccount(User user) {
+        if (login(user.getPassword()))
+        {
+            return false;
+        }
+        users.add(user);
+        return true;
+    }
+
+    public boolean login(String password) {
+        return users.stream().anyMatch(user -> user.getPassword().equals(password));
+    }
+
+    public Optional<User> searchUser(String password)
+    {
+        return users.stream()
+                .filter(user -> user.getPassword().equals(password)).findFirst();
+    }
+
+    public boolean logout(String password) {
+        if (!login(password))
+        {
+            return false;
+        }
+        User user = users.stream().filter(user1 -> user1.getPassword().equals(password))
+                .findFirst().get();
+        users.remove(user);
+        return true;
     }
 
     public ArrayList<TVShow> searchByTitle(String title) {
-        // Implement search by title logic here
-        return null;
+        ArrayList<TVShow> result = new ArrayList<>();
+        for (TVShow show : tvShows)
+        {
+            if (show.getTitle().equals(title))
+            {
+                result.add(show);
+            }
+        }
+        return result;
     }
 
     public ArrayList<TVShow> searchByGenre(String genre) {
-        // Implement search by genre logic here
-        return null;
+        ArrayList<TVShow> result = new ArrayList<>();
+        for (TVShow show : tvShows)
+        {
+            if (show.getGenre().equals(genre))
+            {
+                result.add(show);
+            }
+        }
+        return result;
     }
 
     public ArrayList<TVShow> searchByReleaseYear(int year) {
-        // Implement search by release year logic here
-        return null;
+        ArrayList<TVShow> result = new ArrayList<>();
+        for (TVShow show : tvShows)
+        {
+            if (show.getReleaseYear() == year)
+            {
+                result.add(show);
+            }
+        }
+        return result;
     }
 
+    public boolean doseTVShowExists (TVShow tvShow)
+    {
+        return tvShows.contains(tvShow);
+    }
+
+    public boolean doseMovieExists (Movie movie)
+    {
+        return movies.contains(movie);
+    }
 
 }
 

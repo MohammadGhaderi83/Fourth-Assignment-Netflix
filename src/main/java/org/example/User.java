@@ -3,34 +3,123 @@ package org.example;
 import java.util.ArrayList;
 
 class User {
-    /*
-    * The user should contain username password.
-    * The user should contain an ArrayList of favorite shows and watch history.
-    * FUNCTION: the user should have a function to watch a show and add it to watch history.
-    *  *** NOTE: All search functions in user are for searching in favorite shows ***
-    */
 
+    ArrayList<TVShow> favorites;
+    ArrayList<TVShow> watchHistory;
+    ArrayList<TVShow> recommended;
+    private String username;
+    private String password;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        favorites = new ArrayList<>();
+        watchHistory = new ArrayList<>();
+        recommended = new ArrayList<>();
+    }
+
+    public User() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public ArrayList<TVShow> searchByTitle(String title) {
-        // Implement search by title in favorite shows  logic here
-        return null;
+        ArrayList<TVShow> result = new ArrayList<>();
+        for (TVShow show : favorites)
+        {
+            if (show.getTitle().equals(title))
+            {
+                result.add(show);
+            }
+        }
+        return result;
     }
     public ArrayList<TVShow> searchByGenre(String genre) {
-        // Implement search by genre in favorite shows  logic here
-        return null;
+        ArrayList<TVShow> result = new ArrayList<>();
+        for (TVShow show : favorites)
+        {
+            if (show.getTitle().equals(genre))
+            {
+                result.add(show);
+            }
+        }
+        return result;
     }
     public ArrayList<TVShow> searchByReleaseYear(int year) {
-        // Implement search by release year in favorite shows logic here
-        return null;
+        ArrayList<TVShow> result = new ArrayList<>();
+        for (TVShow show : favorites)
+        {
+            if (show.getReleaseYear() == year)
+            {
+                result.add(show);
+            }
+        }
+        return result;
     }
-    public void addToFavorites(TVShow show) {
-        // Implement add to favorites logic here
+    public boolean addToFavorites(TVShow show) {
+        if (!doesExistsInFavorites(show))
+        {
+            favorites.add(show);
+            Watched(show);
+            return true;
+        }
+        return false;
     }
-    public void viewFavorites() {
-        // Implement view favorites logic here
+    public ArrayList<TVShow> viewFavorites() {
+        return favorites;
+    }
+    public boolean addToRecommended(TVShow show)
+    {
+        if (!doesExistsInRecommended(show))
+        {
+            recommended.add(show);
+            Watched(show);
+            return true;
+        }
+        return false;
     }
     public ArrayList<TVShow> getRecommendations() {
-        // Implement get recommendations logic here
-        return null;
+        return recommended;
+    }
+
+    public boolean Watched(TVShow show)
+    {
+        if (!doesExistsInWatchedShow(show))
+        {
+            watchHistory.add(show);
+            return true;
+        }
+        return false;
+    }
+    public ArrayList<TVShow> watchedHistory()
+    {
+        return watchHistory;
+    }
+    public boolean doesExistsInFavorites(TVShow tvShow)
+    {
+        return favorites.stream().anyMatch(tvShow1 -> tvShow1.getTitle().equals(tvShow.getTitle()));
+    }
+
+    public boolean doesExistsInRecommended(TVShow tvShow)
+    {
+        return recommended.contains(tvShow);
+    }
+    public boolean doesExistsInWatchedShow(TVShow tvShow)
+    {
+        return watchHistory.contains(tvShow);
     }
 }
